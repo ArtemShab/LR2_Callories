@@ -8,6 +8,9 @@
         <div class="form-group file-drop-area">
             <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
             <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
+            <div id="imagePreviewContainer" class="preview-container" style="display: none;">
+            <img id="imagePreview" src="#" alt="Попередній перегляд страви" class="preview-image" />
+        </div>
             <button type="submit" class="btn btn-primary submit-btn">Розрахувати калорії</button>
         </div>
     </form>
