@@ -1,24 +1,39 @@
-﻿@{
+﻿@model LR2_Callories.Models.MealAnalysisResult
+@{
     ViewData["Title"] = "Головна";
 }
-
 <section class="hero-section">
-    <div class="upload-container">
-        <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
-
-        </form>
+    <h1>AI Calorie Counter</h1>
+    <p>Завантажте фото вашої страви, і штучний інтелект миттєво визначить її калорійність та баланс БЖУ.</p>
+</section>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@ViewBag.ErrorMessage</p>
     </div>
-
-    @model LR2_Callories.Models.MealAnalysisResult
-
-    @if (Model != null)
-    {
-        <div class="result-card">
-<h2 class="dish-title">@Model.DishName</h2>
+}
+<div class="upload-container">
+    <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group file-drop-area">
+            <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
+            <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
+        </div>
+        <div id="imagePreviewContainer" class="preview-container" style="display: none;">
+            <img id="imagePreview" src="#" alt="Попередній перегляд страви" class="preview-image" />
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Розрахувати калорії</button>
+    </form>
+</div>
+@if (Model != null)
+{
+    <div class="result-card">
+        <h2 class="dish-title">@Model.DishName</h2>
+        
         <div class="calories-badge">
             <span class="calories-value">@Model.Calories</span>
             <span class="calories-label">ккал</span>
-            <div class="macros-grid">
+        </div>
+        <div class="macros-grid">
             <div class="macro-item protein">
                 <span class="macro-label">Білки</span>
                 <span class="macro-value">@Model.Proteins г</span>
@@ -32,17 +47,8 @@
                 <span class="macro-value">@Model.Carbs г</span>
             </div>
         </div>
-        </div>
-        </div>
-    }
-
-    <h1>AI Calorie Counter</h1>
-    <p>
-        Завантажте фото вашої страви, і штучний інтелект
-        миттєво визначить її калорійність та баланс БЖУ.
-    </p>
-</section>
-
+    </div>
+}
 @section Scripts {
     <script>
         const fileInput = document.getElementById('imageUpload');
