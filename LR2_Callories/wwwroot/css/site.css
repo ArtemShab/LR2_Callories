@@ -49,3 +49,31 @@ body {
     margin-top: 10px;
     width: 100%;
 }
+.preview-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+ .submit-btn:hover {
+        background-color: #1d4ed8;
+
+ }
