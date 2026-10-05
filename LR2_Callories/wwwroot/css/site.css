@@ -141,3 +141,16 @@ body {
 .carb .macro-value {
     color: #16a34a;
 }
+@media (max-width: 600px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .upload-container, .result-card {
+        padding: 20px;
+    }
+
+    .macros-grid {
+        grid-template-columns: 1fr;
+    }
+}
