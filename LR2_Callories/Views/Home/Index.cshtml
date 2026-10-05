@@ -5,6 +5,10 @@
 <section class="hero-section">
     <div class="upload-container">
     <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group file-drop-area">
+            <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
+            <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
+        </div>
     </form>
 </div>
     <h1>AI Calorie Counter</h1>
