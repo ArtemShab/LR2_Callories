@@ -14,7 +14,11 @@
     @if (Model != null)
     {
         <div class="result-card">
-            <!-- Дані страви будуть тут -->
+<h2 class="dish-title">@Model.DishName</h2>
+        <div class="calories-badge">
+            <span class="calories-value">@Model.Calories</span>
+            <span class="calories-label">ккал</span>
+        </div>
         </div>
     }
 
