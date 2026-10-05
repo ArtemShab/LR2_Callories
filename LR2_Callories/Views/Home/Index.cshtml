@@ -4,19 +4,25 @@
 
 <section class="hero-section">
     <div class="upload-container">
-    <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
-        <div class="form-group file-drop-area">
-            <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
-            <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
-            <div id="imagePreviewContainer" class="preview-container" style="display: none;">
-            <img id="imagePreview" src="#" alt="Попередній перегляд страви" class="preview-image" />
+        <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
+
+        </form>
+    </div>
+
+    @model LR2_Callories.Models.MealAnalysisResult
+
+    @if (Model != null)
+    {
+        <div class="result-card">
+            <!-- Дані страви будуть тут -->
         </div>
-            <button type="submit" class="btn btn-primary submit-btn">Розрахувати калорії</button>
-        </div>
-    </form>
-</div>
+    }
+
     <h1>AI Calorie Counter</h1>
-    <p>Завантажте фото вашої страви, і штучний інтелект миттєво визначить її калорійність та баланс БЖУ.</p>
+    <p>
+        Завантажте фото вашої страви, і штучний інтелект
+        миттєво визначить її калорійність та баланс БЖУ.
+    </p>
 </section>
 
 @section Scripts {
