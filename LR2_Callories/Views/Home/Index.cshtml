@@ -18,6 +18,20 @@
         <div class="calories-badge">
             <span class="calories-value">@Model.Calories</span>
             <span class="calories-label">ккал</span>
+            <div class="macros-grid">
+            <div class="macro-item protein">
+                <span class="macro-label">Білки</span>
+                <span class="macro-value">@Model.Proteins г</span>
+            </div>
+            <div class="macro-item fat">
+                <span class="macro-label">Жири</span>
+                <span class="macro-value">@Model.Fats г</span>
+            </div>
+            <div class="macro-item carb">
+                <span class="macro-label">Вуглеводи</span>
+                <span class="macro-value">@Model.Carbs г</span>
+            </div>
+        </div>
         </div>
         </div>
     }
