@@ -18,3 +18,23 @@
     <h1>AI Calorie Counter</h1>
     <p>Завантажте фото вашої страви, і штучний інтелект миттєво визначить її калорійність та баланс БЖУ.</p>
 </section>
+
+@section Scripts {
+    <script>
+        const fileInput = document.getElementById('imageUpload');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        const previewImage = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImage.setAttribute('src', e.target.result);
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}
