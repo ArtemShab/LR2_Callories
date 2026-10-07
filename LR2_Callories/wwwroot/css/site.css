@@ -1,31 +1,156 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8fafc;
+    color: #1e293b;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.hero-section {
+    text-align: center;
+    margin: 40px 0 30px;
+}
+ .hero-section h1 {
+        font-size: 2.5rem;
+        color: #0f172a;
+        margin-bottom: 10px;
+ }
+
+.upload-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto 30px;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.file-drop-area {
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    background-color: #f1f5f9;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.file-input {
+    margin-top: 10px;
+    width: 100%;
+}
+.preview-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+ .submit-btn:hover {
+        background-color: #1d4ed8;
+
+ }
+.result-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.dish-title {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.calories-badge {
+    display: inline-block;
+    background-color: #fef3c7;
+    color: #d97706;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.macros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.macro-item {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.macro-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.macro-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.protein .macro-value {
+    color: #dc2626;
+}
+
+.fat .macro-value {
+    color: #d97706;
+}
+
+.carb .macro-value {
+    color: #16a34a;
+}
+@media (max-width: 600px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .upload-container, .result-card {
+        padding: 20px;
+    }
+
+    .macros-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,8 +1,70 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model LR2_Callories.Models.MealAnalysisResult
+@{
+    ViewData["Title"] = "Головна";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero-section">
+    <h1>AI Calorie Counter</h1>
+    <p>Завантажте фото вашої страви, і штучний інтелект миттєво визначить її калорійність та баланс БЖУ.</p>
+</section>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@ViewBag.ErrorMessage</p>
+    </div>
+}
+<div class="upload-container">
+    <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group file-drop-area">
+            <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
+            <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
+        </div>
+        <div id="imagePreviewContainer" class="preview-container" style="display: none;">
+            <img id="imagePreview" src="#" alt="Попередній перегляд страви" class="preview-image" />
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Розрахувати калорії</button>
+    </form>
 </div>
+@if (Model != null)
+{
+    <div class="result-card">
+        <h2 class="dish-title">@Model.DishName</h2>
+        
+        <div class="calories-badge">
+            <span class="calories-value">@Model.Calories</span>
+            <span class="calories-label">ккал</span>
+        </div>
+        <div class="macros-grid">
+            <div class="macro-item protein">
+                <span class="macro-label">Білки</span>
+                <span class="macro-value">@Model.Proteins г</span>
+            </div>
+            <div class="macro-item fat">
+                <span class="macro-label">Жири</span>
+                <span class="macro-value">@Model.Fats г</span>
+            </div>
+            <div class="macro-item carb">
+                <span class="macro-label">Вуглеводи</span>
+                <span class="macro-value">@Model.Carbs г</span>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script>
+        const fileInput = document.getElementById('imageUpload');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        const previewImage = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImage.setAttribute('src', e.target.result);
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}
