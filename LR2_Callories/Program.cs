@@ -1,7 +1,29 @@
+using LR2_Callories.Services;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// якщо ключа немає працює заглушка, щоб проект запускався без налаштувань
+var aiKey = builder.Configuration["Ai:ApiKey"];
+if (string.IsNullOrWhiteSpace(aiKey))
+{
+    builder.Services.AddScoped<IFoodAnalysisService, MockFoodAnalysisService>();
+}
+else
+{
+    builder.Services.Configure<AiOptions>(builder.Configuration.GetSection("Ai"));
+    builder.Services.AddHttpClient<IFoodAnalysisService, OpenAiFoodAnalysisService>((serviceProvider, client) =>
+    {
+        var options = serviceProvider.GetRequiredService<IOptions<AiOptions>>().Value;
+        client.BaseAddress = new Uri(options.BaseUrl);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.ApiKey);
+        client.Timeout = TimeSpan.FromSeconds(30);
+    });
+}
 
 var app = builder.Build();
 
