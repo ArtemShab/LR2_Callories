@@ -1,4 +1,4 @@
-﻿@model LR2_Callories.Models.MealAnalysisResult
+﻿@model LR2_Callories.Models.MealAnalysisResult?
 @{
     ViewData["Title"] = "Головна";
 }
@@ -16,7 +16,8 @@
     <form asp-controller="Home" asp-action="AnalyzeImage" method="post" enctype="multipart/form-data" class="upload-form">
         <div class="form-group file-drop-area">
             <label for="imageUpload" class="file-label">Оберіть фото страви або перетягніть сюди</label>
-            <input type="file" id="imageUpload" name="imageFile" accept="image/*" class="file-input" required />
+            <input type="file" id="imageUpload" name="imageFile" accept="image/jpeg,image/png,image/webp" class="file-input" required />
+            <small class="file-hint">Підтримуються JPG, PNG та WEBP.</small>
         </div>
         <div id="imagePreviewContainer" class="preview-container" style="display: none;">
             <img id="imagePreview" src="#" alt="Попередній перегляд страви" class="preview-image" />
