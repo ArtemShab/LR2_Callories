@@ -4,6 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Ідентифікатор для зберігання ключів поза репозиторієм (dotnet user-secrets) -->
+    <UserSecretsId>lr2-callories-ai</UserSecretsId>
   </PropertyGroup>
 
 </Project>

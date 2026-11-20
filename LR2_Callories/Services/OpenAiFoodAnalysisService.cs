@@ -1,5 +1,6 @@
 using LR2_Callories.Models;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -59,19 +60,49 @@ namespace LR2_Callories.Services
 
         private static MealAnalysisResult ParseResult(string text)
         {
-            // модель іноді обгортає json в ``` тому прибираємо зайві символи
-            var cleaned = text.Replace("```json", string.Empty).Replace("```", string.Empty).Trim();
+            // модель може обгорнути json у ``` або додати текст навколо, тому вирізаємо перший об'єкт
+            var start = text.IndexOf('{');
+            var end = text.LastIndexOf('}');
+            if (start >= 0 && end > start)
+            {
+                text = text[start..(end + 1)];
+            }
 
-            using var document = JsonDocument.Parse(cleaned);
+            using var document = JsonDocument.Parse(text);
             var root = document.RootElement;
 
             return new MealAnalysisResult
             {
-                DishName = root.GetProperty("dishName").GetString() ?? "невідома страва",
-                Calories = root.GetProperty("calories").GetInt32(),
-                Proteins = root.GetProperty("proteins").GetDouble(),
-                Fats = root.GetProperty("fats").GetDouble(),
-                Carbs = root.GetProperty("carbs").GetDouble()
+                DishName = GetString(root, "dishName", "невідома страва"),
+                Calories = (int)Math.Round(GetNumber(root, "calories")),
+                Proteins = GetNumber(root, "proteins"),
+                Fats = GetNumber(root, "fats"),
+                Carbs = GetNumber(root, "carbs")
+            };
+        }
+
+        private static string GetString(JsonElement root, string property, string fallback) =>
+            root.TryGetProperty(property, out var value) && value.ValueKind == JsonValueKind.String
+                ? value.GetString() ?? fallback
+                : fallback;
+
+        private static double GetNumber(JsonElement root, string property)
+        {
+            if (!root.TryGetProperty(property, out var value))
+            {
+                return 0;
+            }
+
+            return value.ValueKind switch
+            {
+                JsonValueKind.Number => value.GetDouble(),
+                // модель іноді повертає число рядком або з десятковою комою
+                JsonValueKind.String => double.TryParse(
+                    (value.GetString() ?? string.Empty).Replace(',', '.'),
+                    NumberStyles.Any,
+                    CultureInfo.InvariantCulture,
+                    out var parsed) ? parsed : 0,
+                _ => 0
             };
         }
     }

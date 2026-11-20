@@ -19,9 +19,12 @@ else
     builder.Services.AddHttpClient<IFoodAnalysisService, OpenAiFoodAnalysisService>((serviceProvider, client) =>
     {
         var options = serviceProvider.GetRequiredService<IOptions<AiOptions>>().Value;
-        client.BaseAddress = new Uri(options.BaseUrl);
+
+        // BaseAddress має закінчуватись слешем, інакше відносний шлях "chat/completions" загубиться
+        var baseUrl = options.BaseUrl.EndsWith('/') ? options.BaseUrl : options.BaseUrl + "/";
+        client.BaseAddress = new Uri(baseUrl);
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.ApiKey);
-        client.Timeout = TimeSpan.FromSeconds(30);
+        client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds > 0 ? options.TimeoutSeconds : 120);
     });
 }
 

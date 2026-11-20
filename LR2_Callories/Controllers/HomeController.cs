@@ -8,10 +8,12 @@ namespace LR2_Callories.Controllers
     public class HomeController : Controller
     {
         private readonly IFoodAnalysisService _foodAnalysisService;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(IFoodAnalysisService foodAnalysisService)
+        public HomeController(IFoodAnalysisService foodAnalysisService, ILogger<HomeController> logger)
         {
             _foodAnalysisService = foodAnalysisService;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -38,9 +40,10 @@ namespace LR2_Callories.Controllers
                 var result = await _foodAnalysisService.AnalyzeAsync(stream, imageFile.ContentType, cancellationToken);
                 return View("Index", result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // якщо нейромережа не відповіла показуємо просте повідомлення без технічних деталей
+                // деталі пишемо в лог, а користувачу показуємо просте повідомлення без технічних деталей
+                _logger.LogError(ex, "Не вдалося проаналізувати фото страви");
                 ViewBag.ErrorMessage = "не вдалося проаналізувати фото, спробуйте ще раз";
                 return View("Index");
             }
