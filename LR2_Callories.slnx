@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="LR2_Callories.Tests/LR2_Callories.Tests.csproj" Id="1f1bbfae-9613-4030-9554-3673eaba2617" />
   <Project Path="LR2_Callories/LR2_Callories.csproj" />
 </Solution>
